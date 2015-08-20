@@ -24,6 +24,10 @@
         
         <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
         <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search">
+            
+            <!-- passing back a direct reference to the post in relevance -->
+            <span ng-click="upTheVotes( post )" style="cursor: pointer;">[ &uarr; ]</span>
+            
             <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post"></span> -->
             {{ post.title }} - upvotes: {{ post.upvotes }}
         </div>

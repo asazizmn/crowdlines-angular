@@ -34,6 +34,7 @@ app.controller
             { title: "post 5", upvotes: 4 }
         ];
         
+        
         // everytime 'addPost' is accessed, it will invoke the anonymous function
         // that will cause a new post to be appended to the array
         $scope.addPost = function()
@@ -54,6 +55,20 @@ app.controller
             // please note that we have already captured the title above
             $scope.title = "";
         };
+        
+        
+        // defines the functionality to allow incrementing the upvotes,
+        // everytime the 'up arrow' is clicked
+        // please note however that instead of 
+        // 1. passing back the index number and 
+        // 2. traversing the entire array and
+        // 3. then finally updating the count
+        // we are retrieving a reference directly to the post to be updated
+        $scope.upTheVotes = function( post )
+        {
+            post.upvotes += 1;
+        };
+        
     } 
 );
 
