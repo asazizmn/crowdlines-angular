@@ -25,7 +25,6 @@ app.controller
     "mainCtrl", 
     function( $scope )
     {
-        $scope.test = "salam dunya";
         $scope.posts =
         [
             { title: "post 1", upvotes: 5 },
@@ -39,6 +38,12 @@ app.controller
         // that will cause a new post to be appended to the array
         $scope.addPost = function()
         {   
+            // prevent an empty post from being submitted
+            if( !$scope.title || $scope.title === "" )
+            {
+                return;
+            }
+            
             // this simple adds a new post with hardcoded values
             // $scope.posts.push( { title: 'A new post!', upvotes: 0 } );
             
