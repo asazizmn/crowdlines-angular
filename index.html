@@ -22,14 +22,20 @@
         
         <label>Search: <input ng-model="search"></label>
         
-        
-        
         <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
         <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search">
             <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post"></span> -->
             {{ post.title }} - upvotes: {{ post.upvotes }}
         </div>
         
-        <button ng-click="addPost()">Post</button>
+        <!-- please note that one added benefit of using the 'ng-submit' directive, 
+        is that the form can be submitted simply by pressing 'enter' -->
+        <form ng-submit="addPost()">
+            <!-- ng-model allows the value of this input to be bounded to $scope
+            and so the controller will now be able to access this by $scope.title -->
+            <input type="text" ng-model="title"/>
+            <button ng-click="addPost()">Post</button>
+        </form>
+        
     </body>
 </html>
