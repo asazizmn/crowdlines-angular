@@ -39,7 +39,8 @@ app.controller
         // that will cause a new post to be appended to the array
         $scope.addPost = function()
         {   
-            // prevent an empty post from being submitted
+            // prevent an empty post title from being submitted,
+            // please note 'link' on the other hand is NOT compulsary
             if( !$scope.title || $scope.title === "" )
             {
                 return;
@@ -48,12 +49,20 @@ app.controller
             // this simple adds a new post with hardcoded values
             // $scope.posts.push( { title: 'A new post!', upvotes: 0 } );
             
-            // $scope.title allows the form bounded value to be accessed here
-            $scope.posts.push( { title: $scope.title, upvotes: 0 } );
+            // $scope.title, $scope.link allow the form bounded values to be accessed here
+            $scope.posts.push
+            ( 
+                { 
+                    title: $scope.title, 
+                    link: $scope.link, 
+                    upvotes: 0 
+                } 
+            );
             
             // and this will allow the bound title input to be cleared at this point
             // please note that we have already captured the title above
             $scope.title = "";
+            $scope.link = "";
         };
         
         
