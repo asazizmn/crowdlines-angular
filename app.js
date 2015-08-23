@@ -27,11 +27,11 @@ app.controller
     {
         $scope.posts =
         [
-            { title: "post 1", upvotes: 5 },
-            { title: "post 2", upvotes: 2 },
-            { title: "post 3", upvotes: 15 },
-            { title: "post 4", upvotes: 9 },
-            { title: "post 5", upvotes: 4 }
+            { title: "post 1", link: "#", upvotes: 5 },
+            { title: "post 2", link: "#", upvotes: 2 },
+            { title: "post 3", link: "#", upvotes: 15 },
+            { title: "post 4", link: "#", upvotes: 9 },
+            { title: "post 5", link: "#", upvotes: 4 }
         ];
         
         
@@ -41,9 +41,15 @@ app.controller
         {   
             // prevent an empty post title from being submitted,
             // please note 'link' on the other hand is NOT compulsary
-            if( !$scope.title || $scope.title === "" )
+            if ( !$scope.title || $scope.title === "" )
             {
                 return;
+            }
+            
+            // this is to prevent page reloading on empty links
+            if ( !$scope.link || $scope.link === "" )
+            {
+                $scope.link = "#";
             }
             
             // this simple adds a new post with hardcoded values
@@ -77,7 +83,6 @@ app.controller
         {
             post.upvotes += 1;
         };
-        
     } 
 );
 
