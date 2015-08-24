@@ -14,25 +14,69 @@
 var app = angular.module( "crowdlines", [] );
 
 
+//////////////////////////////////////////////////
+// Services
+//////////////////////////////////////////////////
+
+// reusable business logic independent of views
+
+// definition of the posts factory (ie a kind of service)
+app.factory
+( 
+    // factory ID
+    "posts",
+    function() 
+    {
+        // please note that we could have simply return posts,
+        // however, by creating an object (containing the array) first, it will allow us to add 
+        // other properties and methods to this service object, if necessary
+        var service = {
+            posts: 
+            [
+                { title: "post 1", link: "#", upvotes: 5 },
+                { title: "post 2", link: "#", upvotes: 2 },
+                { title: "post 3", link: "#", upvotes: 5 },
+                { title: "post 4", link: "#", upvotes: 9 },
+                { title: "post 5", link: "#", upvotes: 4 }
+            ]
+        };
+        
+        return service;
+    }
+);
+
+
 
 //////////////////////////////////////////////////
 // Controllers
 //////////////////////////////////////////////////
 
+// the business logic behind views
+
 // definition of the 'mainCtrl' controller, which is referenced within index.html
 app.controller
 ( 
     "mainCtrl", 
-    function( $scope )
+    
+    // angular helps to wire this with the appropriate factory based on the factory ID 'posts'
+    function( $scope, posts )
     {
-        $scope.posts =
-        [
-            { title: "post 1", link: "#", upvotes: 5 },
-            { title: "post 2", link: "#", upvotes: 2 },
-            { title: "post 3", link: "#", upvotes: 5 },
-            { title: "post 4", link: "#", upvotes: 9 },
-            { title: "post 5", link: "#", upvotes: 4 }
-        ];
+        // please note that 2-way data-binding only applies to variables bound to the '$scope'
+        // so this controller variable is now bound to the service variable
+        // as a result any change to the posts object in the view will also affect the 'posts' service object 
+        // and automatically beaccessible to other modules using the posts service object
+        $scope.posts = posts.posts;
+        
+        // this variable used to be independent of the service variable,
+        // as shown in the commented out code below
+//        $scope.posts =
+//        [
+//            { title: "post 1", link: "#", upvotes: 5 },
+//            { title: "post 2", link: "#", upvotes: 2 },
+//            { title: "post 3", link: "#", upvotes: 5 },
+//            { title: "post 4", link: "#", upvotes: 9 },
+//            { title: "post 5", link: "#", upvotes: 4 }
+//        ];
         
         
         // everytime 'addPost' is accessed, it will invoke the anonymous function
@@ -116,6 +160,8 @@ app.controller
 //////////////////////////////////////////////////
 // Filters
 //////////////////////////////////////////////////
+
+// formats the value of expressions for display to user
 
 app.filter
 ( 
