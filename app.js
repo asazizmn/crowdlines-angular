@@ -29,7 +29,7 @@ app.controller
         [
             { title: "post 1", link: "#", upvotes: 5 },
             { title: "post 2", link: "#", upvotes: 2 },
-            { title: "post 3", link: "#", upvotes: 15 },
+            { title: "post 3", link: "#", upvotes: 5 },
             { title: "post 4", link: "#", upvotes: 9 },
             { title: "post 5", link: "#", upvotes: 4 }
         ];
