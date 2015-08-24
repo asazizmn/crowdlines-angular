@@ -7,11 +7,43 @@
 
 
 //////////////////////////////////////////////////
-// Modules
+// Modules & Config
 //////////////////////////////////////////////////
 
 // angular modules are basically mini applications 
-var app = angular.module( "crowdlines", [] );
+// please note how "crowdlines" has a dependency named "ui.router"
+// please note that we could have used the regular 'ngRoute' module, but
+// ui-router is newer and provides more flexibility and features 
+// please note the ngRoute us based on URLs whereas ui-router is based on states
+var app = angular.module( "crowdlines", [ "ui.router" ] );
+
+
+// Angular config() function used to setup a home state
+app.config
+(
+    // setup of our 'home' route
+    // each state is given ...
+    // ... a name (ie 'home'),
+    // ... a display URL (ie '/home')
+    // ... the actual URL (ie '/home.html')
+    // additionally 'otherwise()' is used to describe what happens if the app
+    // receives a request for a URL that is not defined
+    function( $stateProvider, $urlRouterProvider )
+    {
+        $stateProvider.state
+        (
+            "home",
+            {
+                url: "/home",
+                templateUrl: "/home.html",
+                controller: "MainCtrl"
+            }
+        );
+
+        // other routes (unspecified) will be directed to "home"
+        $urlRouterProvider.otherwise( "home" );
+    }
+);
 
 
 //////////////////////////////////////////////////
@@ -53,10 +85,10 @@ app.factory
 
 // the business logic behind views
 
-// definition of the 'mainCtrl' controller, which is referenced within index.html
+// definition of the 'MainCtrl' controller, which is referenced within index.html
 app.controller
 ( 
-    "mainCtrl", 
+    "MainCtrl", 
     
     // angular helps to wire this with the appropriate factory based on the factory ID 'posts'
     function( $scope, posts )
@@ -134,7 +166,7 @@ app.controller
 /*
 app.controller
 ( 
-    "mainCtrl",
+    "MainCtrl",
     [
         "$scope",
         
