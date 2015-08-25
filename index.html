@@ -26,43 +26,50 @@
     </head>
     
     <!-- this will be linked to the 'crowdlines' module and 'MainCtrl' controller defined within app.js -->
-    <body ng-app="crowdlines" ng-controller="MainCtrl">
+    <body ng-app="crowdlines">
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
-            
-                <div class="page-header">
-                    <h1>Crowdlines</h1>
-                    <h4>A Social News Site</h4>
-                </div>
-                
-                <div class="form-group"><input class="form-control" type="text" placeholder="Search" ng-model="search"></div>
-
-                <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
-                <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search">
-
-                    <!-- passing back a direct reference to the post in relevance -->
-                    <span class="glyphicon glyphicon-thumbs-up" ng-click="upTheVotes( post )"></span>
-                    {{ post.upvotes }}
-                    
-                    <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post"></span> -->
-                    <a href="{{post.link}}" style="text-decoration: none; font-size: 20px; margin-left: 10px;">{{ post.title }}</a>
-
-                </div>
-
-                <!-- please note that one added benefit of using the 'ng-submit' directive, 
-                is that the form can be submitted simply by pressing 'enter' -->
-                <form ng-submit="addPost()" style="margin-top: 30px;">
-                    
-                    <h4>Add a new post</h4>
-                    
-                    <!-- ng-model allows the value of this input to be bounded to $scope
-                    and so the controller will now be able to access this by $scope.title -->
-                    <div class="form-group"><input class="form-control" type="text" placeholder="Title" ng-model="title"></div>
-                    <div class="form-group"><input class="form-control" type="text" placeholder="URL" ng-model="link"></div>
-                    <button type="submit" class="btn btn-primary">Post</button>
-                </form>
-        
+                <!-- this is where the active view will be placed, please note 
+                that we have removed ng-controller="MainCtrl" from body tag
+                it used to map to the controller $scope -->
+                <ui-view></ui-view>
             </div>
         </div>
+        
+        <!-- inline template - home -->
+        <script type="text/ng-template" id="/home.html">
+            <div class="page-header">
+                <h1>Crowdlines</h1>
+                <h4>A Social News Site</h4>
+            </div>
+
+            <div class="form-group"><input class="form-control" type="text" placeholder="Search" ng-model="search"></div>
+
+            <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
+            <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search">
+
+                <!-- passing back a direct reference to the post in relevance -->
+                <span class="glyphicon glyphicon-thumbs-up" ng-click="upTheVotes( post )"></span>
+                {{ post.upvotes }}
+
+                <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post"></span> -->
+                <a href="{{post.link}}" style="text-decoration: none; font-size: 20px; margin-left: 10px;">{{ post.title }}</a>
+
+            </div>
+
+            <!-- please note that one added benefit of using the 'ng-submit' directive, 
+            is that the form can be submitted simply by pressing 'enter' -->
+            <form ng-submit="addPost()" style="margin-top: 30px;">
+
+                <h4>Add a new post</h4>
+
+                <!-- ng-model allows the value of this input to be bounded to $scope
+                and so the controller will now be able to access this by $scope.title -->
+                <div class="form-group"><input class="form-control" type="text" placeholder="Title" ng-model="title"></div>
+                <div class="form-group"><input class="form-control" type="text" placeholder="URL" ng-model="link"></div>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </script>
+        
     </body>
 </html>
