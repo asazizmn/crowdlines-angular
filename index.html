@@ -22,7 +22,11 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
         <script src="app.js"></script>
         
-        <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+        <style> 
+            .glyphicon-thumbs-up { cursor:pointer } 
+            .inline-block { display: inline-block }
+            .meta-info { color: #aaa }
+        </style>
     </head>
     
     <!-- this will be linked to the 'crowdlines' module and 'MainCtrl' controller defined within app.js -->
@@ -47,16 +51,25 @@
             <div class="form-group"><input class="form-control" type="text" placeholder="Search" ng-model="search"></div>
 
             <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
-            <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search">
+            <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search" style="border-bottom: 1px solid #f5f5f5; padding: 5px 0;">
 
+                <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post.title"></span> -->
+                <div class="inline-block" style="width: 69%">
+                    <a href="{{ post.link }}" style="text-decoration: none; font-size: 20px; margin-left: 10px;">{{ post.title }}</a>
+                </div>
+                
                 <!-- passing back a direct reference to the post in relevance -->
-                <span class="glyphicon glyphicon-thumbs-up" ng-click="upTheVotes( post )">{{ post.upvotes }}</span>
-
-                <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post"></span> -->
-                <a href="{{ post.link }}" style="text-decoration: none; font-size: 20px; margin-left: 10px;">{{ post.title }}</a>
-
+                <div class="inline-block meta-info" style="width: 14%">
+                    <span class="glyphicon glyphicon-thumbs-up" ng-click="upTheVotes( post )"></span>
+                    {{ post.upvotes }}
+                </div>
+                
                 <!-- please note that '$index' is implicitly available within ng-repeat block --> 
-                <span><a href="#/posts/{{ $index }}">Comments</a></span>
+                <div class="inline-block meta-info" style="width: 14%">
+                    <a href="#/posts/{{ $index }}">
+                        <span class="glyphicon glyphicon-comment meta-info"></span>
+                    </a>
+                </div>
                 
             </div>
 

@@ -83,11 +83,11 @@ app.factory
         var service = {
             posts: 
             [
-                { title: "post 1", link: "#", upvotes: 5 },
-                { title: "post 2", link: "#", upvotes: 2 },
-                { title: "post 3", link: "#", upvotes: 5 },
-                { title: "post 4", link: "#", upvotes: 9 },
-                { title: "post 5", link: "#", upvotes: 4 }
+                { title: "Post 1", link: "#", upvotes: 5 },
+                { title: "Post 2", link: "#", upvotes: 2 },
+                { title: "Post 3", link: "#", upvotes: 5 },
+                { title: "Post 4", link: "#", upvotes: 9 },
+                { title: "Post 5", link: "#", upvotes: 4 }
             ]
         };
         
