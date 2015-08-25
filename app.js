@@ -30,20 +30,38 @@ app.config
     // receives a request for a URL that is not defined
     function( $stateProvider, $urlRouterProvider )
     {
-        $stateProvider.state
-        (
-            "home",
-            {
-                url: "/home",
-                templateUrl: "/home.html",
-                controller: "MainCtrl"
-            }
-        );
+        $stateProvider
+        
+            // entire list of posts
+            .state
+            (
+                "home",
+                {
+                    url: "/home",
+                    templateUrl: "/home.html",
+                    controller: "MainCtrl"
+                }
+            )
+
+            // individual post page (w/ comments)
+            .state
+            (
+                "posts",
+                {
+                    // what's within the curley brackets is the dynamic part of the url
+                    // also known as the route 'parameter', it can alternatively be written as "/post/:id"
+                    url: "/posts/{id}",
+                    templateUrl: "/posts.html",
+                    controller: 'PostsCtrl'
+                }
+            );
+            
 
         // other routes (unspecified) will be directed to "home"
         $urlRouterProvider.otherwise( "home" );
     }
 );
+
 
 
 //////////////////////////////////////////////////
@@ -87,7 +105,8 @@ app.factory
 
 // definition of the 'MainCtrl' controller, which is referenced within index.html
 app.controller
-( 
+(
+    // controller ID
     "MainCtrl", 
     
     // angular helps to wire this with the appropriate factory based on the factory ID 'posts'
@@ -137,7 +156,14 @@ app.controller
                 { 
                     title: $scope.title, 
                     link: $scope.link, 
-                    upvotes: 0 
+                    upvotes: 0,
+                    
+                    // temporary, just to check that our routing is working properly for the comments
+                    comments:
+                    [
+                        { author: "Joe", body: "Cool post!", upvotes: 0 },
+                        { author: "Bob", body: "Great idea but everything is wrong!", upvotes: 0 }
+                    ]
                 } 
             );
             
@@ -186,6 +212,28 @@ app.controller
         }
     ]
 );*/
+
+
+// Individual post item controller, that will be directly connected with the 'post (w/ comments)' view
+app.controller
+(
+    "PostsCtrl",
+    
+    // apart from $scope, we want to be able to access...
+    // ... post id using '$stateParams'
+    // ... 'posts' factory service object
+    function( $scope, $stateParams, posts )
+    {
+        // for now the post index will be used as the ID
+        // and used to grab the appropriate post from the factory service object 
+        // and used to newly create a 'post' object within $scope
+        // please note that 'posts.posts' here is being wired to the same factory service object
+        // as used in the 'MainCtrl'. This is the benefit of using factory service,
+        // previously the 'posts' was defined within 'MainCtrl' and non-reusable
+        $scope.post = posts.posts[ $stateParams.id ];
+    }
+);
+
 
 
 
