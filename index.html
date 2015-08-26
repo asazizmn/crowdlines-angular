@@ -87,6 +87,7 @@
                 <div class="form-group"><input class="form-control" type="text" placeholder="Title" ng-model="title"></div>
                 <div class="form-group"><input class="form-control" type="text" placeholder="URL" ng-model="link"></div>
                 <button type="submit" class="btn btn-primary">Post</button>
+        
             </form>
         </script>
         
@@ -107,6 +108,13 @@
                 </span>
                 
             </div>
+    
+            <!-- form to add new comments -->
+            <form ng-submit="addComment()" style="margin-top: 30px">
+                <h4>Add a new comment</h4>
+                <div class="form-group"><input class="form-control" type="text" placeholder="Comment" ng-model="comment"></div>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
         </script>
         
     </body>

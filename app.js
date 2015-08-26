@@ -80,7 +80,8 @@ app.factory
         // please note that we could have simply return posts,
         // however, by creating an object (containing the array) first, it will allow us to add 
         // other properties and methods to this service object, if necessary
-        var service = {
+        var service = 
+        {
             posts: 
             [
                 { title: "Post 1", link: "#", upvotes: 5, comments: [] },
@@ -152,20 +153,12 @@ app.controller
             
             // $scope.title, $scope.link allow the form bounded values to be accessed here
             $scope.posts.push
-            ( 
-                { 
-                    title: $scope.title, 
-                    link: $scope.link, 
-                    upvotes: 0,
-                    
-                    // temporary, just to check that our routing is working properly for the comments
-                    comments:
-                    [
-                        { author: "Joe", body: "Cool post!", upvotes: 0 },
-                        { author: "Bob", body: "Great idea but everything is wrong!", upvotes: 0 }
-                    ]
-                } 
-            );
+            ({ 
+                title: $scope.title, 
+                link: $scope.link, 
+                upvotes: 0,
+                comments: []
+            });
             
             // and this will allow the bound title input to be cleared at this point
             // please note that we have already captured the title above
@@ -190,6 +183,9 @@ app.controller
 
 
 /*
+// an example of a very basic controller example,
+// one which is used without any 'services' and
+// directly connects all scope variables with the view
 app.controller
 ( 
     "MainCtrl",
@@ -231,6 +227,28 @@ app.controller
         // as used in the 'MainCtrl'. This is the benefit of using factory service,
         // previously the 'posts' was defined within 'MainCtrl' and non-reusable
         $scope.post = posts.posts[ $stateParams.id ];
+        
+        // function to handle adding of comment
+        $scope.addComment = function()
+        {
+            // empty comment should not push anything
+            if ( !$scope.comment || $scope.comment === "" )
+            {
+                return;
+            }
+            
+            
+            // push the actual comment onto the array of $scope.post.comments
+            $scope.post.comments.push
+            ({ 
+                body: $scope.comment, 
+                author: "Joe", 
+                upvotes: 0
+            });
+            
+            // to clear field after submission
+            $scope.comment = "";
+        };
     }
 );
 
