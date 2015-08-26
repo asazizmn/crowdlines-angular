@@ -23,9 +23,11 @@
         <script src="app.js"></script>
         
         <style> 
+            .glyphicon { margin-right: 3px; }
             .glyphicon-thumbs-up { cursor:pointer } 
             .inline-block { display: inline-block }
             .meta-info { color: #aaa }
+            .valign-middle { vertical-align: middle }
         </style>
     </head>
     
@@ -66,9 +68,10 @@
                 
                 <!-- please note that '$index' is implicitly available within ng-repeat block --> 
                 <div class="inline-block meta-info" style="width: 14%">
-                    <a href="#/posts/{{ $index }}">
+                    <a href="#/posts/{{ $index }}" class="valign-middle">
                         <span class="glyphicon glyphicon-comment meta-info"></span>
                     </a>
+                    {{ post.comments.length }}
                 </div>
                 
             </div>
