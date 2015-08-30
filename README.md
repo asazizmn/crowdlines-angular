@@ -1,2 +1,2 @@
 # crowdlines
-A social news web application using the MEAN stack (AngularJS v1.3.10)
+A social news application using AngularJS (AngularJS v1.3.10)
