@@ -71,7 +71,7 @@
                     <a href="#/posts/{{ $index }}" class="valign-middle">
                         <span class="glyphicon glyphicon-comment meta-info"></span>
                     </a>
-                    {{ post.comments.length }}
+<!--                    {{ post.comments.length }}-->
                 </div>
                 
             </div>
@@ -95,7 +95,7 @@
         <!-- inline template - post -->
         <script type="text/ng-template" id="/posts.html">
             <div class="page-header">
-                <a href="{{ post.link }}">{{ post.title }}</a>
+                <a href="{{ post.link }}">The Post Comments Page</a>
             </div>
 
             <div ng-repeat="comment in post.comments | orderBy: '-upvotes'">
