@@ -53,7 +53,9 @@
             <div class="form-group"><input class="form-control" type="text" placeholder="Search" ng-model="search"></div>
 
             <!-- please note 'upvotes' vs '-upvotes' is ascending and descending --> 
-            <div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search" style="border-bottom: 1px solid #f5f5f5; padding: 5px 0;">
+            <!--div ng-repeat="post in posts | orderBy: '-upvotes' | filter: search" style="border-bottom: 1px solid #f5f5f5; padding: 5px 0;"-->
+            <div ng-repeat="post in posts | filter: search" style="border-bottom: 1px solid #f5f5f5; padding: 5px 0;">
+
 
                 <!-- the following is equivalent to ng-bind i.e. <span ng-bind="post.title"></span> -->
                 <div class="inline-block" style="width: 69%">
@@ -71,7 +73,7 @@
                     <a href="#/posts/{{ $index }}" class="valign-middle">
                         <span class="glyphicon glyphicon-comment meta-info"></span>
                     </a>
-<!--                    {{ post.comments.length }}-->
+                    {{ post.comments.length }}
                 </div>
                 
             </div>
@@ -95,10 +97,11 @@
         <!-- inline template - post -->
         <script type="text/ng-template" id="/posts.html">
             <div class="page-header">
-                <a href="{{ post.link }}">The Post Comments Page</a>
+                <a href="{{ post.link }}">{{ post.title }}</a>
             </div>
 
-            <div ng-repeat="comment in post.comments | orderBy: '-upvotes'">
+            <!--div ng-repeat="comment in post.comments | orderBy: '-upvotes'"-->
+            <div ng-repeat="comment in post.comments">
 
                 <span class="glyphicon glyphicon-thumbs-up" ng-click="upTheVotes( comment )"></span>
                 {{ comment.upvotes }} - by {{ comment.author }}
